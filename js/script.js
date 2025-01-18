@@ -11,12 +11,23 @@ For assistance:
    Reach out in your Slack community: https://treehouse-fsjs-102.slack.com/app_redirect?channel=unit-2
 */
 
+//mapping out all initial elements for later use
+const header= document.querySelector('header')
+const studentUl=document.querySelector('.student-list');
+const paginationDiv=document.querySelector(".pagination")
+const linkList=document.querySelector(.'link-list')
+
 
 
 /*
 Create the `showPage` function
 This function will create and insert/append the elements needed to display a "page" of nine students
 */
+function showPage(list, page){
+   console.log('showPage');
+
+
+}
 
 
 
@@ -24,6 +35,11 @@ This function will create and insert/append the elements needed to display a "pa
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+function addPagination(){
+   console.log('Add pagination');
+
+
+}
 
 
 
