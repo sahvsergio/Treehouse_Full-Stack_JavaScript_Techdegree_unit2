@@ -15,8 +15,9 @@ For assistance:
 const header= document.querySelector('header')
 
 const paginationDiv=document.querySelector(".pagination")
-const linkList=document.querySelector('.link-list')
+
 const itemsPerPage=9;
+
 
 /*
 Create the `showPage` function
@@ -30,58 +31,85 @@ function showPage(list, page){
    studentUL.innerHtml='';
 
    for (let i=0; i<data.length; i++){
+      student=data[i];
      
       
       if (i>=startIndex &&i<EndIndex){
+         //create elements 
+     
          let studentLi=document.createElement('li');
          let studentDetails=document.createElement('div');
+         let joinedDetails=document.createElement('div');
+         let img=document.createElement('img');
+         let studentName=document.createElement('h3');
+         let emailSpan=document.createElement('span');
+         let dateJoinedSpan=document.createElement('span');
+       
+         
+
+         //Add Classes 
+         img.className="avatar";        
          studentLi.className='student-item cf';
          studentDetails.className='student-details';
+         emailSpan.className='email';
+         joinedDetails.className='joined-details';
+         dateJoinedSpan.className='date';
+
+
+         //Add info to fields to the image 
+         img.src=data[i]['src']=student['picture']['large'];
+         img.alt='Profile Picture'
+         studentName.innerText=`${student['name']['title']} ${student['name']['first']} ${student['name']['last']}`;
+         emailSpan.innerText=`${student['email']}`;
+         dateJoinedSpan.innerText=`Date Joined: ${student['registered']['date']}`;
+
+
+
+         //Append  elements to DOM 
          studentUL.appendChild(studentLi);
-         studentLi.appendChild(studentDetails) ;
         
+         studentLi.appendChild(studentDetails) ;
+         studentLi.appendChild(joinedDetails);
+         studentDetails.appendChild(img); 
          
-         
-
-      }   
-
-
-   
-      
-
+         studentDetails.appendChild(studentName);
+         studentDetails.appendChild(emailSpan);
+         joinedDetails.appendChild(dateJoinedSpan);
+      }
    }
-   return studentUL;
+      return studentUL;
 }
-  
-      
-      //
-
-      //<li class="student-item cf">
-      //    <div class="student-details">
-      //      <img class="avatar" src="https://randomuser.me/api/portraits/women/25.jpg" alt="Profile Picture">
-      //      <h3>Ethel Dean</h3>
-      //      <span class="email">ethel.dean@example.com</span>
-      //    </div>
-      //    <div class="joined-details">
-      //      <span class="date">Joined 12-15-2005</span>
-      //    </div>
-      //  </li>
-
- 
-   
-
-
-
-
 
 
 /*
 Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
+function addPagination(list){
+   numberOfButtons=Math.ceil(list.length / itemsPerPage);
+   let linkList=document.querySelector('.link-list');
+   for (let i=1;i<=numberOfButtons;i++){
+
+      const html=`<li>
+      <button>${i}</button>  </li>`;
+      linkList.insertAdjacentHTML('beforeend',html);
+   }
+   linkList.querySelector('button').classList.add("active");
+   
+  
+
+
+
+ 
+
+
+}
+
 
 
 
 
 // Call functions
+
 showPage(data, 3);
+addPagination(data);
