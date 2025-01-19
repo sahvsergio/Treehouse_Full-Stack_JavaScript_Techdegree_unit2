@@ -76,6 +76,7 @@ function showPage(list, page){
          studentDetails.appendChild(emailSpan);
          joinedDetails.appendChild(dateJoinedSpan);
       }
+   studentUL.innerHtml='';
    }
       return studentUL;
 }
@@ -86,7 +87,8 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list){
-   numberOfButtons=Math.ceil(list.length / itemsPerPage);
+   //variable to 
+   let numberOfButtons=Math.ceil(list.length / itemsPerPage);
    let linkList=document.querySelector('.link-list');
    for (let i=1;i<=numberOfButtons;i++){
 
@@ -94,22 +96,33 @@ function addPagination(list){
       <button>${i}</button>  </li>`;
       linkList.insertAdjacentHTML('beforeend',html);
    }
-   linkList.querySelector('button').classList.add("active");
-   
-  
+   linkButton=linkList.querySelector('button').classList.add('active');
+
+   //classList.add("active"); co
+
+   linkList.addEventListener('click', (e)=>{
+       const activeButton=linkList.querySelector('.active');  
+          
+
+       const buttonClicked=e.target.closest('button');
+       if (buttonClicked){
+         activeButton.classList.remove('active');
+         buttonClicked.classList.add('active');
+         pageNum=parseInt(buttonClicked.textContent,10);
+         console.log(typeof pageNum);
+         showPage(data, pageNum);
+       
+
+       };
 
 
-
- 
-
-
+   });
 }
-
 
 
 
 
 // Call functions
 
-showPage(data, 3);
+showPage(data,3);
 addPagination(data);
