@@ -12,12 +12,104 @@ For assistance:
 */
 
 //mapping out all initial elements for later use
-const header= document.querySelector('header')
+const header= document.querySelector('.header')
 
 const paginationDiv=document.querySelector(".pagination")
 
 const itemsPerPage=9;
 
+function createSearch(){
+   // Create Elements
+   let searchLabel=document.createElement('label');
+   let searchSpan=document.createElement('span');
+   let searchInput=document.createElement('input');
+   let searchButton=document.createElement('button')
+   let searchImage=document.createElement('img')
+
+   //Add Atributes snd properties
+
+   searchLabel.setAttribute('for','search');
+   searchLabel.className='student-search';
+   searchSpan.innerText='Search by name';
+   searchInput.setAttribute('id','search');
+   searchInput.setAttribute('placeholder','Search by name');
+   searchButton.type="button"; 
+   searchImage.src="img/icn-search.svg";
+   searchImage.alt="Search icon";  
+
+ //Append elements of search bar
+   header.appendChild(searchLabel);
+   searchLabel.appendChild(searchSpan);
+   searchLabel.appendChild(searchInput);
+   searchLabel.append(searchButton);
+   searchButton.appendChild(searchImage);
+}
+
+
+function searchForItem(){
+   //Select the search input and get its value
+
+   let searchInput=document.querySelector("#search");
+   
+   searchInput.addEventListener('keyup',(e)=>{
+      let currentValue=searchInput.value.toLowerCase();
+      
+      //Select all the h3, i.e the students name      
+      let students=document.querySelectorAll("h3");
+
+      //loop through students
+      students.forEach(student=>{
+         if(student.textContent.toLowerCase().includes(currentValue)){
+            student.parentNode.parentNode.style.display="block";
+            numberOfStudents=document.querySelectorAll(".student-item");
+            let results=[];
+            results.push(student);
+            
+
+            
+            let linkList=document.querySelector('.link-list')
+            linkList.innerHtml='';
+            let numberOfButtons=Math.ceil(results.length / itemsPerPage);
+           
+            for(let i=1; i<=numberOfButtons;i++){
+               
+              html=`<button class="active">${i}</button>`;
+              linkList.innerHTML=html;               
+            }
+            
+            
+        
+         
+         
+         
+
+
+         }else{
+            student.parentNode.parentNode.style.display='none';
+           
+            
+
+
+
+
+
+            
+         
+           
+         }
+
+      });
+
+
+
+
+   });
+
+
+ ;
+}
+
+   
 
 /*
 Create the `showPage` function
@@ -125,10 +217,7 @@ function addPagination(list){
 
          //Parsing the page number to an Integer for later use in the showPage function
          pageNum=parseInt(buttonClicked.textContent,10);
-         console.log(typeof pageNum);
          showPage(data, pageNum);
-       
-
        };
 
 
@@ -139,6 +228,7 @@ function addPagination(list){
 
 
 // Call functions
-
+createSearch();
+searchForItem()
 showPage(data,1);
 addPagination(data);
