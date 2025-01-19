@@ -34,7 +34,7 @@ function showPage(list, page){
       student=data[i];
      
       
-      if (i>=startIndex &&i<EndIndex){
+      if (i>=startIndex && i <EndIndex){
          //create elements 
      
          let studentLi=document.createElement('li');
@@ -76,7 +76,7 @@ function showPage(list, page){
          studentDetails.appendChild(emailSpan);
          joinedDetails.appendChild(dateJoinedSpan);
       }
-   studentUL.innerHtml='';
+
    }
       return studentUL;
 }
@@ -87,16 +87,21 @@ Create the `addPagination` function
 This function will create and insert/append the elements needed for the pagination buttons
 */
 function addPagination(list){
-   //variable to 
+   //variable to define how many buttons to shwo based on how many elements there are in data
    let numberOfButtons=Math.ceil(list.length / itemsPerPage);
+
    let linkList=document.querySelector('.link-list');
+
    for (let i=1;i<=numberOfButtons;i++){
+
 
       const html=`<li>
       <button>${i}</button>  </li>`;
+      //Adding the button before the end of the link list
       linkList.insertAdjacentHTML('beforeend',html);
    }
-   linkButton=linkList.querySelector('button').classList.add('active');
+   // Adding class to the button
+   linkList.querySelector('button').classList.add('active');
 
    //classList.add("active"); co
 
@@ -104,10 +109,21 @@ function addPagination(list){
        const activeButton=linkList.querySelector('.active');  
           
 
-       const buttonClicked=e.target.closest('button');
+       const buttonClicked=e.target.closest('button');       
        if (buttonClicked){
+         //Selecting the student list again
+         const studentUL=document.querySelector('.student-list');
+
+         //Clearing the previous content from the student List
+         studentUL.innerHTML='';
+
+         //removing the active class list from the 1st button
          activeButton.classList.remove('active');
+
+         //adding the class to the button that was clicked
          buttonClicked.classList.add('active');
+
+         //Parsing the page number to an Integer for later use in the showPage function
          pageNum=parseInt(buttonClicked.textContent,10);
          console.log(typeof pageNum);
          showPage(data, pageNum);
@@ -124,5 +140,5 @@ function addPagination(list){
 
 // Call functions
 
-showPage(data,3);
+showPage(data,1);
 addPagination(data);
