@@ -52,64 +52,49 @@ function searchForItem(){
    let searchInput=document.querySelector("#search");
    
    searchInput.addEventListener('keyup',(e)=>{
-      let currentValue=searchInput.value.toLowerCase();
-      
-      //Select all the h3, i.e the students name      
-      let students=document.querySelectorAll("h3");
-
-      //loop through students
-      students.forEach(student=>{
-         if(student.textContent.toLowerCase().includes(currentValue)){
-            student.parentNode.parentNode.style.display="block";
-            numberOfStudents=document.querySelectorAll(".student-item");
-            let results=[];
-            results.push(student);
-            
-
-            
-            let linkList=document.querySelector('.link-list')
-            linkList.innerHtml='';
-            let numberOfButtons=Math.ceil(results.length / itemsPerPage);
-           
-            for(let i=1; i<=numberOfButtons;i++){
-               
-              html=`<button class="active">${i}</button>`;
-              linkList.innerHTML=html;               
-            }
-            
-            
+      let studentList=document.querySelector('.student-list');
+      studentList.innerHTML='';      
+       let currentValue=e.target.value.toLowerCase();
+       let newData=[];
+       let students=data;
+       console.log(students.length);
+       studentTitles=document.querySelectorAll('h3').textContent;
+       
+       for (let i=0;i<students.length;i++){
         
-         
-         
-         
-
-
-         }else{
-            student.parentNode.parentNode.style.display='none';
-           
-            
-
-
-
-
-
-            
-         
-           
+         let studentName=students[i]['name']['first'].toLowerCase();
+         if (studentName.includes(currentValue)){
+           let studentHtml=`<li class="student-item cf">
+          <div class="student-details">
+            <img class="avatar" src="${students[i]['name']['title']}" alt="Profile Picture">
+            <h3>Ethel Dean</h3>
+            <span class="email">ethel.dean@example.com</span>
+          </div>
+          <div class="joined-details">
+            <span class="date">Joined 12-15-2005</span>
+          </div>
+        </li>`;
+        studentList.innerHTML='';
          }
+         
+       
+       else{
+                  studentList.innerHTML='<h3>No results found</h3>';
+                  paginationDiv.remove();
+               }
+            }
 
-      });
+       
+       
 
 
-
-
+       
    });
-
-
- ;
 }
 
-   
+      
+
+
 
 /*
 Create the `showPage` function
