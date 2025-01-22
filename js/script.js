@@ -64,17 +64,10 @@ function searchForItem(){
         
          let studentName=students[i]['name']['first'].toLowerCase();
          if (studentName.includes(currentValue)){
-           let studentHtml=`<li class="student-item cf">
-          <div class="student-details">
-            <img class="avatar" src="${students[i]['name']['title']}" alt="Profile Picture">
-            <h3>Ethel Dean</h3>
-            <span class="email">ethel.dean@example.com</span>
-          </div>
-          <div class="joined-details">
-            <span class="date">Joined 12-15-2005</span>
-          </div>
-        </li>`;
-        studentList.innerHTML='';
+            newData.push(data[i]);
+            console.log(newData);
+           
+     
          }
          
        
