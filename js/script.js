@@ -84,7 +84,7 @@ function searchForItem(){
          addPagination(newData);
       }else{
          studentList.innerHTML='<h3>No results found</h3>';
-         paginationDiv.querySelector('link-list').innerHTML='';
+         paginationDiv.querySelector('.link-list').innerHTML='';
       }
             
 
