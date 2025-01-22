@@ -53,7 +53,7 @@ function searchForItem(){
    
    searchInput.addEventListener('keyup',(e)=>{
       let studentList=document.querySelector('.student-list');
-      studentList.innerHTML='';      
+        
        let currentValue=e.target.value.toLowerCase();
        let newData=[];
        let students=data;
