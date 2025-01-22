@@ -55,27 +55,38 @@ function searchForItem(){
       let studentList=document.querySelector('.student-list');
         
        let currentValue=e.target.value.toLowerCase();
+       //create new array to hold future data
        let newData=[];
-       let students=data;
-       console.log(students.length);
-       studentTitles=document.querySelectorAll('h3').textContent;
+       //cleaned both student list and pagination dvi
+
+       studentList.innerHTML='';
        
+       //assign to a more meaninful variable
+       let students=data;     
+       
+       //loop through the data
        for (let i=0;i<students.length;i++){
+         //assign the name of the person to a new variable
         
          let studentName=students[i]['name']['first'].toLowerCase();
+         //compare it to the new value of the event listener target, i.e the search box
          if (studentName.includes(currentValue)){
+            //pushing to the new data array
             newData.push(data[i]);
-            console.log(newData);
-           
+          
      
          }
          
-       
-       else{
-                  studentList.innerHTML='<h3>No results found</h3>';
-                  paginationDiv.remove();
-               }
-            }
+         }
+      //after the loop has ended, used the showPage and addPagination to create pages and pagination
+      if(newData.length>0){
+         showPage(newData,1);
+         addPagination(newData);
+      }else{
+         studentList.innerHTML='<h3>No results found</h3>';
+         paginationDiv.innerHTML='';
+      }
+            
 
        
        
@@ -98,10 +109,10 @@ function showPage(list, page){
    let startIndex=(page*itemsPerPage)-itemsPerPage;
    let EndIndex=page*itemsPerPage;
    const studentUL=document.querySelector('.student-list');
-   studentUL.innerHtml='';
+   studentUL.innerHTML='';
 
-   for (let i=0; i<data.length; i++){
-      student=data[i];
+   for (let i=0; i<list.length; i++){
+      student=list[i];
      
       
       if (i>=startIndex && i <EndIndex){
@@ -127,7 +138,7 @@ function showPage(list, page){
 
 
          //Add info to fields to the image 
-         img.src=data[i]['src']=student['picture']['large'];
+         img.src=student['picture']['large'];
          img.alt='Profile Picture'
          studentName.innerText=`${student['name']['title']} ${student['name']['first']} ${student['name']['last']}`;
          emailSpan.innerText=`${student['email']}`;
@@ -161,6 +172,7 @@ function addPagination(list){
    let numberOfButtons=Math.ceil(list.length / itemsPerPage);
 
    let linkList=document.querySelector('.link-list');
+   linkList.innerHTML='';
 
    for (let i=1;i<=numberOfButtons;i++){
 
@@ -170,9 +182,9 @@ function addPagination(list){
       //Adding the button before the end of the link list
       linkList.insertAdjacentHTML('beforeend',html);
    }
+  
    // Adding class to the button
    linkList.querySelector('button').classList.add('active');
-
    //classList.add("active"); co
 
    linkList.addEventListener('click', (e)=>{
@@ -194,7 +206,7 @@ function addPagination(list){
          buttonClicked.classList.add('active');
 
          //Parsing the page number to an Integer for later use in the showPage function
-         pageNum=parseInt(buttonClicked.textContent,10);
+         let pageNum=parseInt(buttonClicked.textContent,10);
          showPage(data, pageNum);
        };
 
