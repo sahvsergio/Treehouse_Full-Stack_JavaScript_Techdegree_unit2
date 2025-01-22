@@ -84,7 +84,7 @@ function searchForItem(){
          addPagination(newData);
       }else{
          studentList.innerHTML='<h3>No results found</h3>';
-         paginationDiv.innerHTML='';
+         paginationDiv.querySelector('link-list').innerHTML='';
       }
             
 
@@ -207,7 +207,7 @@ function addPagination(list){
 
          //Parsing the page number to an Integer for later use in the showPage function
          let pageNum=parseInt(buttonClicked.textContent,10);
-         showPage(data, pageNum);
+         showPage(list, pageNum);
        };
 
 
